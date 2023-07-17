@@ -42,6 +42,10 @@ jobs:
           --repo-deploy-snapshots ${{ vars.ARTIFACTORY_SNAPSHOT_REPO }} \
           --repo-deploy-releases ${{ vars.ARTIFACTORY_RELEASES_REPO }}
 
+      - name: Audit Dependencies
+        run: |
+          jf audit --mvn --watches Xray-Demo-Watch
+
       - name: Build Maven Project
         run: |
           jf mvn clean install \
