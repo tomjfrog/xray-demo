@@ -30,10 +30,10 @@ jobs:
       - name: Set Artifactory Config
         run: |
           jf c add artifactory \
-          --interactive false \
-          --url ${{ secrets.ARTIFACTORY_URL }} \
-          --user ${{ secrets.ARTIFACTORY_USER }} \
-          --access-token ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
+          --interactive=false \
+          --url=${{ secrets.ARTIFACTORY_URL }} \
+          --user=${{ secrets.ARTIFACTORY_USER }} \
+          --access-token=${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
 
       - name: Validate Artifactory Config
         run: |
