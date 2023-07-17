@@ -32,7 +32,7 @@ jobs:
 
       - name: Validate Artifactory Config
         run: |
-          jf c show artifactory && jf rt ping
+          jf rt ping
 
       - name: Set Maven Config
         run: |
