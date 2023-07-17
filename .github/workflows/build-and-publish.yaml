@@ -48,14 +48,6 @@ jobs:
           --build-name=${{ github.repository }} \
           --build-number=${{ github.run_number }} \
 
-      - name: Collect Build Info
-        run: |
-          jf rt u "target/*.jar" ${{ vars.ARTIFACTORY_REPO_KEY }} \
-            --url=${{ secrets.ARTIFACTORY_URL }} \
-            --build-name=${{ github.repository }} \
-            --build-number=${{ github.run_number }} \
-            --flat=true
-
       - name: Collect Build Environment Variables
         run: |
           jf rt bce ${{ github.repository }} ${{ github.run_number }}
