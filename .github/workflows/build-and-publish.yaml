@@ -44,12 +44,26 @@ jobs:
 
       - name: Build Maven Project
         run: |
-          jf mvn clean install
+          jf mvn clean install \
+          --build-name=${{ github.repository }} \
+          --build-number=${{ github.run_number }} \
 
       - name: Collect Build Info
         run: |
-          jf rt u "target/*.jar" "${var.ARTIFACTORY_REPO_KEY}/latest/" \
-            --url={{ secrets.ARTIFACTORY_URL }} \
+          jf rt u "target/*.jar" "${{ var.ARTIFACTORY_REPO_KEY }}" \
+            --url=${{ secrets.ARTIFACTORY_URL }} \
             --build-name=${{ github.repository }} \
             --build-number=${{ github.run_number }} \
             --flat=true
+
+      - name: Collect Build Environment Variables
+        run: |
+          jf rt bce ${{ github.repository }} ${{ github.run_number }}
+
+      - name: Collect Git Information
+        run: |
+          jf rt bag ${{ github.repository }} ${{ github.run_number }}
+
+      - name: Publish Build Info
+        run: |
+          jf rt bp ${{ github.repository }} ${{ github.run_number }}
