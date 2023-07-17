@@ -27,3 +27,7 @@ jobs:
       - name: Print Tag Name
         run: |
           echo "Tag: ${{ github.ref }}"
+
+      - name: Promote Build to Release Candidate
+        run: |
+          jf rt bpr ${{ github.repository }} ${{ github.run_number }} ${{ vars.ARTIFACTORY_STAGE_REPO_KEY}} --status=staged --comment="Promoting build to release candidate"
