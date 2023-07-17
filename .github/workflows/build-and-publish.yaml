@@ -30,10 +30,10 @@ jobs:
       - name: Set Artifactory Config
         run: |
           jf c add artifactory \
-          --interactive=false \
-          --url=${{ secrets.ARTIFACTORY_URL }} \
-          --user=${{ secrets.ARTIFACTORY_USER }} \
-          --password=${{ secrets.ARTIFACTORY_PASSWORD }} && \
+          --interactive false \
+          --url ${{ secrets.ARTIFACTORY_URL }} \
+          --user ${{ secrets.ARTIFACTORY_USER }} \
+          --password ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} && \
           jf rt ping
 
       - name: Set Maven Config
