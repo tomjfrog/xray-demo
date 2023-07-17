@@ -50,7 +50,7 @@ jobs:
 
       - name: Audit Dependencies
         run: |
-          jf audit --mvn --watches "Xray-Demo-Watch"      
+          jf audit --mvn
 
       - name: Collect Build Environment Variables
         run: |
