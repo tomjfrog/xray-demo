@@ -22,17 +22,35 @@ jobs:
         run: mvn clean package
 
       - name: Set up JFrog CLI
-        uses: jfrog/setup-jfrog-cli@v1
-        with:
-          server-id: artifactory
+        uses: jfrog/setup-jfrog-cli@v3
+        env:
+          JFROG_CLI_LOG_LEVEL: INFO
+          JFROG_CLI_OFFER_CONFIG: false
+          JF_URL: ${{ secrets.ARTIFACTORY_URL }}
+          JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
 
-      - name: Publish to Artifactory
+      - name: Set Artifactory Config
         run: |
-          export ARTIFACTORY_URL="https://your-artifactory-instance.com/artifactory"
-          export ARTIFACTORY_REPO_KEY="your-repository"
+          jf c add artifactory \
+          --interactive=false \
+          --url=${{ secrets.ARTIFACTORY_URL }} \
+          --user=${{ secrets.ARTIFACTORY_USER }} \
+          --password=${{ secrets.ARTIFACTORY_PASSWORD }}
 
-          jfrog rt u "target/*.jar" "${ARTIFACTORY_REPO_KEY}/latest/" \
-            --url=${ARTIFACTORY_URL} \
+      - name: Set Maven Config
+        run: |
+          jf mvnc \
+          --server-id-resolve=artifactory \
+          --server-id-deploy=artifactory \
+
+      - name: Build Maven Project
+        run: |
+          jf mvn clean install
+
+      - name: Collect Build Info
+        run: |
+          jf rt u "target/*.jar" "${env.ARTIFACTORY_REPO_KEY}/latest/" \
+            --url={{ secrets.ARTIFACTORY_URL }} \
             --build-name=${{ github.repository }} \
             --build-number=${{ github.run_number }} \
             --flat=true
