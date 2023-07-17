@@ -1,0 +1,29 @@
+name: Promote and Create Release Candidate
+
+on:
+  push:
+    tags:
+      - '*-rc-[0-9]*' # Regex pattern to match tags suffixed with '-rc-' followed by a number
+
+jobs:
+  promote-and-create-release-candidate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v3
+        with:
+          version: latest
+        env:
+          JFROG_CLI_LOG_LEVEL: INFO
+          JFROG_CLI_OFFER_CONFIG: false
+          JF_URL: ${{ secrets.ARTIFACTORY_URL }}
+          JF_USER: ${{ secrets.ARTIFACTORY_USER }}
+          JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
+
+      - name: Print Tag Name
+        run: |
+          echo "Tag: ${{ github.ref }}"
