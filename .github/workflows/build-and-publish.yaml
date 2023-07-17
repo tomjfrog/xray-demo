@@ -38,10 +38,10 @@ jobs:
       - name: Set Maven Config
         run: |
           jf mvnc \
-          --server-id-resolve=artifactory \
-          --server-id-deploy=artifactory \
-          --repo-resolve-snapshots=${{ vars.ARTIFACTORY_SNAPSHOT_REPO }} \
-          --repo-resolve-releases=${{ vars.ARTIFACTORY_RELEASES_REPO }} \
+          --server-id-resolve artifactory \
+          --server-id-deploy artifactory \
+          --repo-resolve-snapshots ${{ vars.ARTIFACTORY_SNAPSHOT_REPO }} \
+          --repo-resolve-releases ${{ vars.ARTIFACTORY_RELEASES_REPO }} \
 
       - name: Build Maven Project
         run: |
