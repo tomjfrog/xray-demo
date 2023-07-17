@@ -50,7 +50,7 @@ jobs:
 
       - name: Collect Build Info
         run: |
-          jf rt u "target/*.jar" "${{ var.ARTIFACTORY_REPO_KEY }}" \
+          jf rt u "target/*.jar" ${{ vars.ARTIFACTORY_REPO_KEY }} \
             --url=${{ secrets.ARTIFACTORY_URL }} \
             --build-name=${{ github.repository }} \
             --build-number=${{ github.run_number }} \
