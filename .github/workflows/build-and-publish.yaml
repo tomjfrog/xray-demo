@@ -33,7 +33,7 @@ jobs:
           --interactive false \
           --url ${{ secrets.ARTIFACTORY_URL }} \
           --user ${{ secrets.ARTIFACTORY_USER }} \
-          --password ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} && \
+          --access-token ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} && \
           jf rt ping
 
       - name: Set Maven Config
