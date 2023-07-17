@@ -34,7 +34,10 @@ jobs:
           --url ${{ secrets.ARTIFACTORY_URL }} \
           --user ${{ secrets.ARTIFACTORY_USER }} \
           --access-token ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }} && \
-          jf rt ping
+
+      - name: Validate Artifactory Config
+        run: |
+          jf c show artifactory && jf rt ping
 
       - name: Set Maven Config
         run: |
