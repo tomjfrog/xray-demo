@@ -42,6 +42,8 @@ jobs:
           --server-id-deploy artifactory \
           --repo-resolve-snapshots ${{ vars.ARTIFACTORY_SNAPSHOT_REPO }} \
           --repo-resolve-releases ${{ vars.ARTIFACTORY_RELEASES_REPO }} \
+          --repo-deploy-snapshots ${{ vars.ARTIFACTORY_SNAPSHOT_REPO }} \
+          --repo-deploy-releases ${{ vars.ARTIFACTORY_RELEASES_REPO }}
 
       - name: Build Maven Project
         run: |
