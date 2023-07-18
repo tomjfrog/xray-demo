@@ -27,7 +27,7 @@ jobs:
       - name: Fetch Commit ID of Tagged Code
         id: tag_commit_id
         run: |
-          tag_commit_id=${{ github.sha }}
+          echo "Commit ID: $(git rev-list -n 1 ${{ github.ref }})"
 
       - name: Print Tag Name
         run: |
