@@ -27,7 +27,7 @@ jobs:
       - name: Fetch Commit ID of Tagged Code
         id: tag_commit_id
         run: |
-          tag_commit_id=$(git fetch --depth=1 origin ${{ github.ref }})
+          tag_commit_id=${{ github.sha }}
 
       - name: Print Tag Name
         run: |
