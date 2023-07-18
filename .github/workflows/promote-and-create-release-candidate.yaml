@@ -25,9 +25,9 @@ jobs:
           JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
 
       - name: Fetch Commit ID of Tagged Code
-        id: tag_commit_id
+        id: tag_commit_sha
         run: |
-          echo "Commit ID: $(git rev-list -n 1 ${{ github.ref }})"
+          echo "::set-output name=commit_sha::$(git rev-list -n 1 ${{ github.ref }})"
 
       - name: Print Tag Name
         run: |
@@ -35,8 +35,8 @@ jobs:
 
       - name: Print Commit ID
         run: |
-          echo "Commit ID: ${{ steps.tag_commit_id.outputs.tag_commit_id }}"
+          echo "Commit ID: ${{ steps.tag_commit_sha.outputs.tag_commit_sha }}"
 
-      - name: Promote Build to Release Candidate
-        run: |
-          jf rt bpr ${{ github.repository }} ${{ github.run_number }} ${{ vars.ARTIFACTORY_STAGE_REPO_KEY}} --status=staged --comment="Promoting build to release candidate"
+#      - name: Promote Build to Release Candidate
+#        run: |
+#          jf rt bpr ${{ github.repository }} ${{ github.run_number }} ${{ vars.ARTIFACTORY_STAGE_REPO_KEY}} --status=staged --comment="Promoting build to release candidate"
