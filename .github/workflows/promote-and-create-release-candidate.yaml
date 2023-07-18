@@ -24,10 +24,10 @@ jobs:
           JF_USER: ${{ secrets.ARTIFACTORY_USER }}
           JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
 
-      - name: Fetch Commit ID of Tagged Code
+      - name: Store Commit ID of Tagged Code
         id: tag_commit_sha
         run: |
-          echo "::set-output name=commit_sha::$(git rev-list -n 1 ${{ github.ref }})"
+          echo "commit_sha::$(git rev-list -n 1 ${{ github.ref }}) >> $GITHUB_OUTPUT"
 
       - name: Print Tag Name
         run: |
